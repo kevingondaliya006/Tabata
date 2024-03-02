@@ -59,24 +59,27 @@ function updateDisplay(time) {
 
 function timerFunction() {
   if (totalTime <= 0) {
-    playSound('beepSound');
+    playSound("beep.mp3");
     switch (currentPhase) {
       case 'prepare':
         totalTime = workTime;
         currentPhase = 'work';
         document.body.style.backgroundColor = 'red';
-        playSound('workSound');
+        playSound("beep.mp3");
         break;
       case 'work':
+        playSound("beep.mp3");
         totalTime = restTime;
         currentPhase = 'rest';
         document.body.style.backgroundColor = 'lightblue';
-        playSound('restSound');
+        playSound("beep.mp3");
         break;
       case 'rest':
         if (cycles > 1) {
+          playSound("beep.mp3");
           totalTime = workTime;
           currentPhase = 'work';
+          playSound("beep.mp3");
           document.body.style.backgroundColor = 'red';
           cycles--;
         } else if (tabatas > 1) {
@@ -90,7 +93,9 @@ function timerFunction() {
           timer = null;
           document.body.style.backgroundColor = '';
           isFinished = true;
+          playSound("beep.mp3");
           document.getElementById('timerDisplay').textContent = 'Hurray, You Finished ' + document.getElementById('tabatas').value + ' tabatas!';
+          
         }
         break;
     }
@@ -99,9 +104,7 @@ function timerFunction() {
   totalTime--;
 }
 
-function playSound(soundId) {
-  const sound = document.getElementById(soundId);
-  if (sound) {
-    sound.play();
-  }
-}
+function playSound(soundPath) {
+  const sound = new Audio(soundPath);
+  sound.play();
+ }
